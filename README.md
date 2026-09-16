@@ -2,27 +2,28 @@
 
 ## Project Overview
 
-The Campus Resource Allocation & Conflict Resolution System is a Java-based application designed to manage shared campus resources such as laboratories, classrooms, seminar halls, and equipment.
+The Campus Resource Allocation & Conflict Resolution System is a Java-based command-line application developed to manage shared campus resources such as laboratories, classrooms, seminar halls, and equipment.
 
-The system processes resource requests, checks availability, detects scheduling conflicts, prioritizes requests, and allocates resources accordingly.
+The system accepts resource requests, validates them, checks for scheduling conflicts, processes requests according to priority, allocates available resources, and stores important records in a MySQL database.
 
-It demonstrates Object-Oriented Programming, Java Collections, Exception Handling, Multithreading, Synchronization, JDBC, and MySQL.
+The project demonstrates Java Object-Oriented Programming, Collections, Exception Handling, Multithreading, Synchronization, JDBC, and File/Database-based data management.
 
 ## Problem Statement
 
-Campus resources are shared by students, faculty members, and other users. Manual resource allocation can result in double booking, scheduling conflicts, and difficulty in tracking requests.
+Campus resources are shared by multiple students and faculty members. When multiple users request the same resource for overlapping time periods, manual allocation can result in double booking, scheduling conflicts, and difficulty in tracking requests.
 
-This project provides an automated Java-based solution for managing resource requests and resolving conflicts using priority-based allocation.
+This project provides a Java-based solution that validates requests, detects conflicts, processes requests according to priority, and records allocation and conflict information.
 
 ## Objectives
 
 - Manage campus users and resources.
-- Accept and process resource requests.
+- Accept and validate resource requests.
 - Detect overlapping resource bookings.
-- Prioritize requests.
-- Allocate resources without double booking.
+- Process requests according to priority.
+- Allocate available resources.
+- Prevent conflicting resource allocations.
 - Process multiple requests using multithreading.
-- Store records using MySQL.
+- Store project records using MySQL and JDBC.
 - Maintain conflict and audit records.
 
 ## Main Features
@@ -30,18 +31,13 @@ This project provides an automated Java-based solution for managing resource req
 - User Management
 - Resource Management
 - Resource Request Management
+- Request Validation
 - Conflict Detection
-- Priority-Based Allocation
+- Priority-Based Request Processing
+- Resource Allocation
 - Concurrent Request Processing
-- Database Persistence
-- Audit Logging
-
-## Requirements
-
-- JDK 17 or later
-- MySQL Server 8.0 or later
-- MySQL Connector/J
-- Visual Studio Code or any Java-compatible IDE
+- MySQL Database Persistence
+- Conflict and Audit Logging
 
 ## Technologies Used
 
@@ -49,7 +45,8 @@ This project provides an automated Java-based solution for managing resource req
 - MySQL
 - JDBC
 - Java Collections Framework
-- Multithreading and Synchronization
+- Multithreading
+- Synchronization
 - Exception Handling
 - Git and GitHub
 - Visual Studio Code
@@ -58,10 +55,6 @@ This project provides an automated Java-based solution for managing resource req
 
 - Classes and Objects
 - Encapsulation
-- Inheritance
-- Polymorphism
-- Interfaces
-- Method Overriding
 - Constructors
 - Enums
 - ArrayList
@@ -70,71 +63,77 @@ This project provides an automated Java-based solution for managing resource req
 - Multithreading
 - Synchronization
 - JDBC
-- CRUD Operations
+- SQL CRUD-related operations
 
 ## Project Modules
 
 ### 1. User & Resource Management
-
-Maintains information about campus users and available resources.
+Manages campus users and shared resources.
 
 ### 2. Resource Request Management
+Creates, stores, validates, and manages resource requests.
 
-Creates and manages requests containing user, resource, date, time, purpose, and priority.
+### 3. Conflict Detection
+Checks whether a request overlaps with an already approved request for the same resource and time period.
 
-### 3. Conflict Detection Engine
+### 4. Priority & Allocation
+Processes requests according to priority and allocates available resources.
 
-Checks whether a requested resource has an overlapping approved booking.
-
-### 4. Priority & Allocation Engine
-
-Processes requests according to their priority and allocates available resources.
-
-### 5. Concurrent Request Processor
-
-Uses Java threads and synchronization to safely process multiple resource requests.
+### 5. Concurrent Request Processing
+Uses multiple threads to process pending resource requests while synchronizing shared request processing.
 
 ### 6. Database & Audit Management
-
-Uses JDBC and MySQL to store users, resources, requests, allocations, conflicts, and audit records.
+Uses JDBC and MySQL to store users, resources, requests, allocations, conflicts, and audit logs.
 
 ## System Workflow
 
 User Request  
-→ Request Validation  
-→ Conflict Detection  
-→ Priority Processing  
-→ Resource Allocation  
-→ Database Storage  
-→ Audit Logging
+↓  
+Request Validation  
+↓  
+Priority Processing  
+↓  
+Conflict Detection  
+↓  
+Resource Allocation / Rejection  
+↓  
+Database Update  
+↓  
+Audit Logging
 
 ## Example Execution
 
-Two requests are made for the same Programming Lab:
+Two requests are submitted for the same Programming Lab:
 
 - Request 301 — Priority 3
 - Request 302 — Priority 5
 
-Request 302 is processed first because it has higher priority and is successfully allocated.
+The higher-priority Request 302 is processed first and successfully allocated.
 
-Request 301 overlaps with the approved booking and is rejected because of the resource conflict.
+Request 301 overlaps with the approved booking and is rejected because of the detected resource conflict.
 
 ## Project Structure
 
 ```text
-CampusResourceAllocation/
+CampusResourceAllocation
 │
-├── lib/
+├── .gitignore
+├── README.md
+├── statement.md
+├── schema.sql
+│
+├── .vscode
+│   ├── launch.json
+│   └── settings.json
+│
+├── lib
 │   └── mysql-connector-j-26.7.0.jar
 │
-├── src/
-│   └── campus/
-│       ├── model/
-│       ├── service/
-│       ├── dao/
-│       ├── exception/
-│       ├── util/
-│       └── main/
-│
-├── .vscode/
-└── README.md
+└── src
+    └── campus
+        ├── dao
+        ├── exception
+        ├── main
+        ├── model
+        ├── service
+        └── util
